@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       title: 'Finvest Task',
       theme: ThemeData(
+        fontFamily: 'CYRVETIC',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),

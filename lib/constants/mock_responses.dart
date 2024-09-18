@@ -1,7 +1,8 @@
 Map<String, dynamic> cards = {
   "cards": [
     {
-      "imageUrl": "https://placehold.co/60x60.png",
+      "imageUrl":
+          "https://i.pinimg.com/474x/58/dd/24/58dd24e33594badf083b6518940d5a74.jpg",
       "id": "1",
       "type": "credit",
       "name": "Wellsfargo Gold",
@@ -9,19 +10,21 @@ Map<String, dynamic> cards = {
       "expense": "23450.24"
     },
     {
-      "imageUrl": "https://placehold.co/60x60.png",
+      "imageUrl":
+          "https://s3.amazonaws.com/itunes-images/app-assets/301724680/260516864/301724680-260516864-circularArtwork-300.jpg",
       "id": "2",
       "type": "credit",
       "name": "City Platinum",
       "cardLast4": "6008",
-      "expense": "12000.63"
+      "expense": "32000.63"
     }
   ]
 };
 Map<String, dynamic> cardDetails = {
   "cards": [
     {
-      "imageUrl": "https://placehold.co/60x60.png",
+      "imageUrl":
+          "https://i.pinimg.com/474x/58/dd/24/58dd24e33594badf083b6518940d5a74.jpg",
       "id": "1",
       "type": "credit",
       "name": "Wellsfargo Gold",
@@ -30,12 +33,13 @@ Map<String, dynamic> cardDetails = {
       "total_limit": "50000.00"
     },
     {
-      "imageUrl": "https://placehold.co/60x60.png",
+      "imageUrl":
+          "https://s3.amazonaws.com/itunes-images/app-assets/301724680/260516864/301724680-260516864-circularArtwork-300.jpg",
       "id": "2",
       "type": "credit",
       "name": "City Platinum",
       "cardLast4": "6008",
-      "expense": "12000.63",
+      "expense": "22000.63",
       "total_limit": "30000.00"
     }
   ]
@@ -45,23 +49,26 @@ Map<String, dynamic> categories = {
     {
       "name": "Foods & Dining",
       "id": "",
-      "icon": "https://placehold.co/60x60.png",
-      "spend_percentage": "",
-      "expense": ""
+      "icon":
+          "https://www.clipartmax.com/png/middle/29-293880_fast-food-burger-and-drink-vector-food-and-drink-logo.png",
+      "spend_percentage": "90",
+      "expense": "5000.32"
     },
     {
       "name": "Apps & Software",
       "id": "",
-      "icon": "https://placehold.co/60x60.png",
-      "spend_percentage": "",
-      "expense": ""
+      "icon":
+          "https://as2.ftcdn.net/v2/jpg/01/60/33/79/1000_F_160337935_9zxOgAlzgYawlieXK7nOSFfqJdNACHfB.jpg",
+      "spend_percentage": "80",
+      "expense": "2600.45"
     },
     {
       "name": "Health & Wellness",
       "id": "",
-      "icon": "https://placehold.co/60x60.png",
-      "spend_percentage": "",
-      "expense": ""
+      "icon":
+          "https://www.shutterstock.com/image-vector/hands-heart-outline-icon-linear-260nw-1854572605.jpg",
+      "spend_percentage": "4",
+      "expense": "2400.94"
     }
   ]
 };
@@ -76,7 +83,7 @@ Map<String, dynamic> transactions = {
       "status": "Pending",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name":
@@ -87,8 +94,8 @@ Map<String, dynamic> transactions = {
       "date": "2024-09-17T03:54:05.458",
       "status": "Pending",
       "type": "Buy",
-      "expense": "110.00",
-      "icon": "https://placehold.co/60x60.png"
+      "expense": "220.00",
+      "icon": "https://cdn-icons-png.flaticon.com/512/5977/5977591.png"
     },
     {
       "name": "Mc Donalds",
@@ -98,8 +105,9 @@ Map<String, dynamic> transactions = {
       "date": "2024-09-17T03:54:05.458",
       "status": "",
       "type": "Buy",
-      "expense": "110.00",
-      "icon": "https://placehold.co/60x60.png"
+      "expense": "220.00",
+      "icon":
+          "https://logos-world.net/wp-content/uploads/2020/04/McDonalds-Logo.png"
     },
     {
       "name": "Ikea",
@@ -110,7 +118,7 @@ Map<String, dynamic> transactions = {
       "status": "",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name": "JBL Technologies",
@@ -120,8 +128,8 @@ Map<String, dynamic> transactions = {
       "date": "2024-09-17T03:54:05.458",
       "status": "Pending",
       "type": "Buy",
-      "expense": "135.00",
-      "icon": "https://placehold.co/60x60.png"
+      "expense": "235.00",
+      "icon": ""
     },
     {
       "name": "Google",
@@ -131,8 +139,8 @@ Map<String, dynamic> transactions = {
       "date": "2024-09-17T03:54:05.458",
       "status": "Pending",
       "type": "Buy",
-      "expense": "135.00",
-      "icon": "https://placehold.co/60x60.png"
+      "expense": "235.00",
+      "icon": ""
     },
     {
       "name": "Netflix",
@@ -142,8 +150,8 @@ Map<String, dynamic> transactions = {
       "date": "2024-09-17T03:54:05.458",
       "status": "",
       "type": "Buy",
-      "expense": "135.00",
-      "icon": "https://placehold.co/60x60.png"
+      "expense": "235.00",
+      "icon": ""
     },
     {
       "name": "Uber",
@@ -154,7 +162,7 @@ Map<String, dynamic> transactions = {
       "status": "",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name": "Starbucks",
@@ -165,7 +173,7 @@ Map<String, dynamic> transactions = {
       "status": "Pending",
       "type": "Buy",
       "expense": "72.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": "https://cdn-icons-png.flaticon.com/512/5977/5977591.png"
     },
     {
       "name": "Ola",
@@ -176,7 +184,8 @@ Map<String, dynamic> transactions = {
       "status": "Pending",
       "type": "Buy",
       "expense": "72.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon":
+          "https://cdn.dribbble.com/users/924799/screenshots/4155307/my_dribbble_-_logo-06.jpg"
     },
     {
       "name": "Lyft",
@@ -187,7 +196,7 @@ Map<String, dynamic> transactions = {
       "status": "Completed",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name": "Open AI",
@@ -198,7 +207,7 @@ Map<String, dynamic> transactions = {
       "status": "Completed",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name": "Blackberry",
@@ -209,7 +218,7 @@ Map<String, dynamic> transactions = {
       "status": "Pending",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
     {
       "name": "Samsung",
@@ -220,7 +229,7 @@ Map<String, dynamic> transactions = {
       "status": "Pending",
       "type": "Buy",
       "expense": "82.00",
-      "icon": "https://placehold.co/60x60.png"
+      "icon": ""
     },
   ]
 };

@@ -6,9 +6,10 @@ part 'card_state.dart';
 
 class CardCubit extends Cubit<CardState> {
   CardCubit() : super(CardInitialState());
+  final CardRepository _repo = CardRepository();
+
   fetchCards() async {
     emit(CardLoadingState());
-    CardRepository _repo = CardRepository();
     CardList result = await _repo.fetchCards();
     if (result.cards != null) {
       emit(CardLoadedState(result.cards!));
@@ -19,7 +20,6 @@ class CardCubit extends Cubit<CardState> {
 
   fetchFilteredCards() async {
     emit(CardLoadingState());
-    CardRepository _repo = CardRepository();
     CardList result = await _repo.fetchCards();
     if (result.cards != null) {
       emit(CardLoadedState(result.cards!));

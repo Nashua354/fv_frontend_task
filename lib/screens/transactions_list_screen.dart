@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fv_frontend_task/bloc/transactions_cubit/transaction_cubit.dart';
+import 'package:fv_frontend_task/constants/app_colors.dart';
 import 'package:fv_frontend_task/models/transactions.dart';
+import 'package:fv_frontend_task/widgets/card_outline.dart';
+import 'package:fv_frontend_task/widgets/custom_list_tile.dart';
 import 'package:go_router/go_router.dart';
 
 class TransactionsPage extends StatefulWidget {
@@ -23,12 +26,12 @@ class _TransactionsPageState extends State<TransactionsPage> {
     return SafeArea(
       bottom: false,
       child: Scaffold(
-        backgroundColor: Color(0xffDBE4F1),
+        backgroundColor: const Color(0xffDBE4F1),
         appBar: AppBar(
-          backgroundColor: Color(0xffDBE4F1),
+          backgroundColor: const Color(0xffDBE4F1),
           elevation: 0,
           leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
                 context.pop();
               },
@@ -67,11 +70,11 @@ class _TransactionsPageState extends State<TransactionsPage> {
                         padding: EdgeInsets.zero,
                         value: selectedValue,
                         items: [
-                          DropdownMenuItem(
+                          const DropdownMenuItem(
                             child: Text('Credit card •••• 3507'),
                             value: 'Credit card •••• 3507',
                           ),
-                          DropdownMenuItem(
+                          const DropdownMenuItem(
                             child: Text('Credit card •••• 6008'),
                             value: 'Credit card •••• 6008',
                           )
@@ -117,37 +120,36 @@ class _TransactionsPageState extends State<TransactionsPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                BlocBuilder<TransactionCubit, TransactionState>(
-                  builder: (context, state) {
-                    if (state is TransactionLoadingState) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (state is TransactionLoadedState) {
-                      return Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: ListView.separated(
+                CardOutline(
+                  child: BlocBuilder<TransactionCubit, TransactionState>(
+                    builder: (context, state) {
+                      if (state is TransactionLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is TransactionLoadedState) {
+                        return ListView.separated(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.transactions.length,
-                          separatorBuilder: (context, index) => Divider(),
+                          separatorBuilder: (context, index) => Divider(
+                            height: 2,
+                            color: AppColors.dividerColor,
+                          ),
                           itemBuilder: (_, index) {
                             Transaction transaction = state.transactions[index];
-                            return TransactionItem(
+                            return CustomListTile(
                               imageUrl: transaction.icon!,
                               title: transaction.name!,
-                              date: '22 Jun 24, 4:25pm',
-                              status: transaction.status!,
-                              amount: '-\$${transaction.expense}',
+                              subtitle:
+                                  '22 Jun 24, 4:25pm • ${transaction.status}',
+                              trailing: '-\$${transaction.expense}',
                             );
                           },
-                        ),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

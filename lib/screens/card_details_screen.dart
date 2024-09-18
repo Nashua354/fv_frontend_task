@@ -1,35 +1,53 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fv_frontend_task/bloc/transactions_cubit/transaction_cubit.dart';
+import 'package:fv_frontend_task/widgets/card_outline.dart';
+import 'package:fv_frontend_task/widgets/custom_list_tile.dart';
+import 'package:fv_frontend_task/widgets/recent_transactions.dart';
 import 'package:go_router/go_router.dart';
 
-class CardDetailsScreen extends StatelessWidget {
+class CardDetailsScreen extends StatefulWidget {
+  @override
+  State<CardDetailsScreen> createState() => _CardDetailsScreenState();
+}
+
+class _CardDetailsScreenState extends State<CardDetailsScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<TransactionCubit>(context).fetchTransactions();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEFF3F6),
+      backgroundColor: const Color(0xFFDDE6F3),
       appBar: AppBar(
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               context.pop();
             },
             color: Colors.black),
-        title: Text(
+        title: const Text(
           'Credit cards',
           style: TextStyle(color: Colors.black, fontSize: 20),
         ),
-        actions: [
+        actions: const [
           Icon(Icons.more_vert, color: Colors.black),
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
+              color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -46,23 +64,23 @@ class CardDetailsScreen extends StatelessWidget {
                           width: 60,
                           height: 40,
                         ),
-                        Text(
+                        const Text(
                           'VISA',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
-                    Text(
+                    const SizedBox(height: 16),
+                    const Text(
                       '**** **** **** 7628',
                       style: TextStyle(fontSize: 24, letterSpacing: 2),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Container(
-                      color: Color(0xFF0074CC),
-                      padding: EdgeInsets.all(16),
-                      child: Row(
+                      color: const Color(0xFF0074CC),
+                      padding: const EdgeInsets.all(16),
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
@@ -91,7 +109,7 @@ class CardDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,8 +119,9 @@ class CardDetailsScreen extends StatelessWidget {
                 _buildActionButton('BENEFITS', Icons.card_membership),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Card(
+              color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -111,33 +130,33 @@ class CardDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'AVAILABLE CREDIT LIMIT',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       '\$32,781.00',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     LinearProgressIndicator(
                       value: 0.5,
                       backgroundColor: Colors.grey[300],
                       color: Colors.blue,
                     ),
-                    SizedBox(height: 8),
-                    Row(
+                    const SizedBox(height: 8),
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('\$24,890.00 Spent'),
                         Text('\$50,000.00 Total credit limit'),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Last updated from bank on 4 Jul, 10:24AM',
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -145,66 +164,49 @@ class CardDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            Text(
-              'Top categories',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            const SizedBox(height: 16),
+            CardOutline(
+              child: Column(
+                children: [
+                  const Text(
+                    'Top categories',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const CustomListTile(
+                      title: 'Foods & dining',
+                      trailing: '-\$110.32',
+                      imageUrl: "",
+                      subtitle: '90% of spends',
+                      icon: Icons.restaurant,
+                      iconColor: Colors.blue),
+                  const CustomListTile(
+                      title: 'Apps & software',
+                      trailing: '-\$2600.45',
+                      imageUrl: "",
+                      subtitle: '90% of spends',
+                      icon: Icons.apps,
+                      iconColor: Colors.orange),
+                  const CustomListTile(
+                      title: 'Health & wellness',
+                      trailing: '-\$1400.94',
+                      imageUrl: "",
+                      subtitle: '4% of spends',
+                      icon: Icons.health_and_safety,
+                      iconColor: Colors.purple),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('SEE ALL CATEGORIES'),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 8),
-            _buildCategoryItem('Foods & dining', '-\$110.32', '90% of spends',
-                Icons.restaurant, Colors.blue),
-            _buildCategoryItem('Apps & software', '-\$2600.45', '90% of spends',
-                Icons.apps, Colors.orange),
-            _buildCategoryItem('Health & wellness', '-\$1400.94',
-                '4% of spends', Icons.health_and_safety, Colors.purple),
-            SizedBox(height: 8),
-            TextButton(
-              onPressed: () {},
-              child: Text('SEE ALL CATEGORIES'),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Recent transactions',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            _buildTransactionItem(
-                'Uber',
-                '-\$82.00',
-                '22 Jun 24, 4:25pm',
-                'Pending',
-                'https://placehold.co/40x40.png?description=Uber%20logo'),
-            _buildTransactionItem(
-                'Starbucks',
-                '-\$110.00',
-                '22 Jun 24, 4:25pm',
-                'Pending',
-                'https://placehold.co/40x40.png?description=Starbucks%20logo'),
-            _buildTransactionItem(
-                'Mc Donalds',
-                '-\$110.00',
-                '22 Jun 24, 4:25pm',
-                'Pending',
-                'https://placehold.co/40x40.png?description=Mc%20Donalds%20logo'),
-            _buildTransactionItem(
-                'Ikea',
-                '-\$110.00',
-                '22 Jun 24, 4:25pm',
-                'Pending',
-                'https://placehold.co/40x40.png?description=Ikea%20logo'),
-            _buildTransactionItem(
-                'JBL technologies',
-                '-\$110.00',
-                '22 Jun 24, 4:25pm',
-                'Pending',
-                'https://placehold.co/40x40.png?description=JBL%20technologies%20logo'),
-            SizedBox(height: 8),
-            TextButton(
-              onPressed: () {},
-              child: Text('SEE ALL TRANSACTIONS'),
-            ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
+            const RecentTransactions(),
+            const SizedBox(height: 16),
             Card(
+              color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -215,21 +217,21 @@ class CardDetailsScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Need any help?',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 8),
-                        Text('Our representative will call you'),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
+                        const Text('Our representative will call you'),
+                        const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text('Call customer care'),
+                          child: const Text('Call customer care'),
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     CachedNetworkImage(
                       imageUrl:
                           'https://placehold.co/80x80.png?description=Support%20image',
@@ -250,8 +252,8 @@ class CardDetailsScreen extends StatelessWidget {
     return Column(
       children: [
         Icon(icon, size: 30, color: Colors.black),
-        SizedBox(height: 8),
-        Text(text, style: TextStyle(color: Colors.black)),
+        const SizedBox(height: 8),
+        Text(text, style: const TextStyle(color: Colors.black)),
       ],
     );
   }
@@ -269,7 +271,8 @@ class CardDetailsScreen extends StatelessWidget {
         ),
         title: Text(title),
         subtitle: Text(percentage),
-        trailing: Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
+        trailing:
+            Text(amount, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
     );
   }
@@ -284,7 +287,8 @@ class CardDetailsScreen extends StatelessWidget {
         leading: CachedNetworkImage(imageUrl: imageUrl, width: 40, height: 40),
         title: Text(title),
         subtitle: Text('$date • $status'),
-        trailing: Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
+        trailing:
+            Text(amount, style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
     );
   }
