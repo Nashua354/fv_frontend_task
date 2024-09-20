@@ -31,11 +31,12 @@ A few resources to get you started if this is your first Flutter project:
 - [ ] Flutter Testing
 
 Screenshots 
-![Alt text](/screenshots/ss1.png?raw=true)
-![Alt text](/screenshots/ss2.png?raw=true)
-![Alt text](/screenshots/ss3.png?raw=true)
-![Alt text](/screenshots/ss4.png?raw=true)
-![Alt text](/screenshots/ss5.png?raw=true)
-![Alt text](/screenshots/ss6.png?raw=true)
-![Alt text](/screenshots/ss7.png?raw=true)
+
+<img src="screenshots/ss1.png" width="250">
+<img src="screenshots/ss2.png" width="250">
+<img src="screenshots/ss3.png" width="250">
+<img src="screenshots/ss4.png" width="250">
+<img src="screenshots/ss5.png" width="250">
+<img src="screenshots/ss6.png" width="250">
+<img src="screenshots/ss7.png" width="250">
 
