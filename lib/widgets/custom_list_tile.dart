@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fv_frontend_task/utils/common_functions.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile(
@@ -60,33 +62,46 @@ class CustomListTile extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        trailing: RichText(
-          text: TextSpan(children: [
-            TextSpan(
-                text: trailing.split('.').first,
-                style: TextStyle(color: Colors.black, fontSize: 16)),
-            WidgetSpan(
-              child: Transform.translate(
-                offset: const Offset(1, -5),
-                child: Text(
-                  ".${trailing.split('.').last}",
-                  //superscript is usually smaller in size
-                  textScaleFactor: 0.7,
+        trailing: priceWithSuperScript(trailing, 16));
+  }
+}
 
-                  style: TextStyle(color: Colors.black, fontSize: 12),
-                ),
+class ShimmerListLoader extends StatelessWidget {
+  const ShimmerListLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 3,
+          itemBuilder: (contrxt, index) {
+            return ListTile(
+              leading: Container(
+                height: 60,
+                width: 60,
+                color: Colors.white,
               ),
-            )
-          ]),
-        )
-
-        // Text(
-        //   trailing,
-        //   style: const TextStyle(
-        //     // fontFeatures: [FontFeature.superscripts()],
-        //     fontSize: 16,
-        //   ),
-        // ),
-        );
+              title: Container(
+                height: 10,
+                width: 120,
+                color: Colors.white,
+              ),
+              trailing: Container(
+                height: 10,
+                width: 50,
+                color: Colors.white,
+              ),
+              subtitle: Container(
+                height: 8,
+                width: 80,
+                color: Colors.white,
+              ),
+            );
+          }),
+    );
   }
 }

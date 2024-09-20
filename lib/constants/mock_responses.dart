@@ -7,7 +7,7 @@ Map<String, dynamic> cards = {
       "type": "credit",
       "name": "Wellsfargo Gold",
       "cardLast4": "6372",
-      "expense": "23450.24"
+      "expense": "23,450.24"
     },
     {
       "imageUrl":
@@ -16,7 +16,7 @@ Map<String, dynamic> cards = {
       "type": "credit",
       "name": "City Platinum",
       "cardLast4": "6008",
-      "expense": "32000.63"
+      "expense": "32,000.63"
     }
   ]
 };
@@ -52,7 +52,7 @@ Map<String, dynamic> categories = {
       "icon":
           "https://www.clipartmax.com/png/middle/29-293880_fast-food-burger-and-drink-vector-food-and-drink-logo.png",
       "spend_percentage": "90",
-      "expense": "5000.32"
+      "expense": "5,000.32"
     },
     {
       "name": "Apps & Software",
@@ -60,7 +60,7 @@ Map<String, dynamic> categories = {
       "icon":
           "https://as2.ftcdn.net/v2/jpg/01/60/33/79/1000_F_160337935_9zxOgAlzgYawlieXK7nOSFfqJdNACHfB.jpg",
       "spend_percentage": "80",
-      "expense": "2600.45"
+      "expense": "2,600.45"
     },
     {
       "name": "Health & Wellness",
@@ -68,7 +68,7 @@ Map<String, dynamic> categories = {
       "icon":
           "https://www.shutterstock.com/image-vector/hands-heart-outline-icon-linear-260nw-1854572605.jpg",
       "spend_percentage": "4",
-      "expense": "2400.94"
+      "expense": "2,400.94"
     }
   ]
 };
@@ -232,4 +232,10 @@ Map<String, dynamic> transactions = {
       "icon": ""
     },
   ]
+};
+Map<String, dynamic> selectedFilters = {
+  "date": "",
+  "type": "",
+  "category": "",
+  "status": "",
 };

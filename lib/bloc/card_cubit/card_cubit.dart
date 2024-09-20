@@ -18,9 +18,9 @@ class CardCubit extends Cubit<CardState> {
     }
   }
 
-  fetchFilteredCards() async {
+  fetchCardDetails() async {
     emit(CardLoadingState());
-    CardList result = await _repo.fetchCards();
+    CardList result = await _repo.fetchCardDetails();
     if (result.cards != null) {
       emit(CardLoadedState(result.cards!));
     } else {

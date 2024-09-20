@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _initialize() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       context.pushReplacementNamed(AppRoute.cardListing.name);
     });
   }

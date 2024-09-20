@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fv_frontend_task/router/router.dart';
-import 'package:fv_frontend_task/screens/cards_listing_screen.dart';
 
 void main() {
   runApp(const MyApp());

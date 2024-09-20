@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fv_frontend_task/bloc/transactions_cubit/transaction_cubit.dart';
 import 'package:fv_frontend_task/constants/app_colors.dart';
@@ -23,20 +22,18 @@ class _RecentTransactionsState extends State<RecentTransactions> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _buildSectionTitle('All transactions'),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Divider(
             height: 2,
             color: AppColors.dividerColor,
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           BlocBuilder<TransactionCubit, TransactionState>(
               builder: (context, state) {
             if (state is TransactionLoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const ShimmerListLoader();
             } else if (state is TransactionLoadedState) {
               return ListView.separated(
                   padding: EdgeInsets.zero,
@@ -88,7 +85,7 @@ class _RecentTransactionsState extends State<RecentTransactions> {
   Widget _buildCardFooter(String title) {
     return Center(
       child: Text(title,
-          style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+          style: const TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
     );
   }
 }

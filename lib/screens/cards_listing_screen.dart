@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fv_frontend_task/bloc/card_cubit/card_cubit.dart';
@@ -7,7 +6,6 @@ import 'package:fv_frontend_task/bloc/transactions_cubit/transaction_cubit.dart'
 import 'package:fv_frontend_task/constants/app_colors.dart';
 import 'package:fv_frontend_task/models/cards.dart';
 import 'package:fv_frontend_task/models/category_model.dart';
-import 'package:fv_frontend_task/models/transactions.dart';
 import 'package:fv_frontend_task/router/routes.dart';
 import 'package:fv_frontend_task/widgets/card_outline.dart';
 import 'package:fv_frontend_task/widgets/custom_chart.dart';
@@ -16,6 +14,8 @@ import 'package:fv_frontend_task/widgets/recent_transactions.dart';
 import 'package:go_router/go_router.dart';
 
 class CardListingScreen extends StatefulWidget {
+  const CardListingScreen({super.key});
+
   @override
   State<CardListingScreen> createState() => _CardListingScreenState();
 }
@@ -23,11 +23,15 @@ class CardListingScreen extends StatefulWidget {
 class _CardListingScreenState extends State<CardListingScreen> {
   @override
   void initState() {
+    loadData();
+
+    super.initState();
+  }
+
+  loadData() {
     BlocProvider.of<CardCubit>(context).fetchCards();
     BlocProvider.of<TransactionCubit>(context).fetchTransactions();
     BlocProvider.of<CategoryCubit>(context).fetchCategories();
-
-    super.initState();
   }
 
   @override
@@ -39,181 +43,185 @@ class _CardListingScreenState extends State<CardListingScreen> {
         elevation: 0,
         centerTitle: false,
         title: const Text('Credit card', style: TextStyle(color: Colors.black)),
-        actions: [
-          const Icon(Icons.info_outline, size: 30, color: Colors.black),
+        actions: const [
+          Icon(Icons.info_outline, color: Colors.black),
+          SizedBox(width: 8)
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          loadData();
+          return;
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16),
+                    Text('BALANCE DUE', style: TextStyle(color: Colors.grey)),
+                    SizedBox(height: 8),
+                    Text('\$245,781.00',
+                        style: TextStyle(
+                            fontSize: 32, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 16),
+              Stack(
                 children: [
-                  const SizedBox(height: 16),
-                  const Text('BALANCE DUE',
-                      style: TextStyle(color: Colors.grey)),
-                  const SizedBox(height: 8),
-                  const Text('\$245,781.00',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                  SizedBox(
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                    // color: Colors.blue.withOpacity(0.1),
+                    child: const LineChartSample2(),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 40,
+                    right: 40,
+                    child: Card(
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildTimeFilterButton('1W'),
+                          _buildTimeFilterButton('1M'),
+                          _buildTimeFilterButton('3M'),
+                          _buildTimeFilterButton('6M', isSelected: true),
+                          _buildTimeFilterButton('YTD'),
+                          _buildTimeFilterButton('1Y'),
+                          _buildTimeFilterButton('ALL'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
+              // const SizedBox(height: 16),
 
-            const SizedBox(height: 16),
-            Stack(
-              children: [
-                Container(
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  // color: Colors.blue.withOpacity(0.1),
-                  child: LineChartSample2(),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 40,
-                  right: 40,
-                  child: Card(
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildTimeFilterButton('1W'),
-                        _buildTimeFilterButton('1M'),
-                        _buildTimeFilterButton('3M'),
-                        _buildTimeFilterButton('6M', isSelected: true),
-                        _buildTimeFilterButton('YTD'),
-                        _buildTimeFilterButton('1Y'),
-                        _buildTimeFilterButton('ALL'),
-                      ],
-                    ),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.baseColor.withOpacity(0.1),
+                      Colors.white
+                    ], // Gradient colors
+                    begin:
+                        Alignment.topCenter, // Starting point of the gradient
+                    end: Alignment.bottomCenter, // Ending point of the gradient
                   ),
                 ),
-              ],
-            ),
-            // const SizedBox(height: 16),
-
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.baseColor.withOpacity(0.1),
-                    Colors.white
-                  ], // Gradient colors
-                  begin: Alignment.topCenter, // Starting point of the gradient
-                  end: Alignment.bottomCenter, // Ending point of the gradient
-                ),
-              ),
-              child: Column(
-                children: [
-                  // Cards
-                  CardOutline(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 12),
-                        _buildSectionTitle('Credit cards'),
-                        SizedBox(height: 12),
-                        Divider(
-                          height: 2,
-                          color: AppColors.dividerColor,
-                        ),
-                        BlocBuilder<CardCubit, CardState>(
-                            builder: (context, state) {
-                          if (state is CardLoadingState) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (state is CardLoadedState) {
-                            return ListView.separated(
-                                shrinkWrap: true,
-                                padding: EdgeInsets.zero,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, index) {
-                                  CardModel card = state.cards[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      context
-                                          .pushNamed(AppRoute.cardDetails.name);
-                                    },
-                                    child: CustomListTile(
-                                        imageUrl: card.imageUrl!,
-                                        title: card.name!,
-                                        trailing: '-\$${card.expense}',
-                                        subtitle:
-                                            'Asset ••••${card.cardLast4}'),
-                                  );
-                                },
-                                separatorBuilder: (_, index) => Divider(
-                                      height: 2,
-                                      color: AppColors.dividerColor,
-                                    ),
-                                itemCount: state.cards.length);
-                          }
-                          return Container();
-                        }),
-                        Divider(
-                          height: 2,
-                          color: AppColors.dividerColor,
-                        ),
-                        SizedBox(height: 12),
-                        _buildCardFooter('+ ADD ACCOUNT'),
-                      ],
-                    ),
-                  ),
-                  CardOutline(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 8),
-                        _buildSectionTitle('Top categories'),
-                        const SizedBox(height: 8),
-                        Divider(color: AppColors.dividerColor, height: 2),
-                        BlocBuilder<CategoryCubit, CategoryState>(
-                            builder: (context, state) {
-                          if (state is CategoryLoadedState) {
-                            return ListView.separated(
-                                separatorBuilder: (context, index) => Divider(
-                                    color: AppColors.dividerColor, height: 2),
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                itemCount: state.categories.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  CategoryModel category =
-                                      state.categories[index];
-                                  return CustomListTile(
-                                      imageUrl: category.icon!,
-                                      title: category.name!,
-                                      subtitle:
-                                          '${category.spendPercentage}% of spends',
-                                      trailing: '-\$${category.expense}');
-                                });
-                          } else if (state is CategoryLoadingState) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
+                child: Column(
+                  children: [
+                    // Cards
+                    CardOutline(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 12),
+                          _buildSectionTitle('Credit cards'),
+                          const SizedBox(height: 12),
+                          Divider(
+                            height: 2,
+                            color: AppColors.dividerColor,
+                          ),
+                          BlocBuilder<CardCubit, CardState>(
+                              builder: (context, state) {
+                            if (state is CardLoadingState) {
+                              return const ShimmerListLoader();
+                            } else if (state is CardLoadedState) {
+                              return ListView.separated(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (_, index) {
+                                    CardModel card = state.cards[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        context.pushNamed(
+                                            AppRoute.cardDetails.name);
+                                      },
+                                      child: CustomListTile(
+                                          imageUrl: card.imageUrl!,
+                                          title: card.name!,
+                                          trailing: '-\$${card.expense}',
+                                          subtitle:
+                                              'Asset ••••${card.cardLast4}'),
+                                    );
+                                  },
+                                  separatorBuilder: (_, index) => Divider(
+                                        height: 2,
+                                        color: AppColors.dividerColor,
+                                      ),
+                                  itemCount: state.cards.length);
+                            }
                             return Container();
-                          }
-                        }),
-                        Divider(color: AppColors.dividerColor, height: 2),
-                        const SizedBox(height: 8),
-                        _buildCardFooter('SEE ALL CATEGORIES >'),
-                        const SizedBox(height: 8),
-                      ],
+                          }),
+                          Divider(
+                            height: 2,
+                            color: AppColors.dividerColor,
+                          ),
+                          const SizedBox(height: 12),
+                          _buildCardFooter('+ ADD ACCOUNT'),
+                        ],
+                      ),
                     ),
-                  ),
+                    CardOutline(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 8),
+                          _buildSectionTitle('Top categories'),
+                          const SizedBox(height: 8),
+                          Divider(color: AppColors.dividerColor, height: 2),
+                          BlocBuilder<CategoryCubit, CategoryState>(
+                              builder: (context, state) {
+                            if (state is CategoryLoadedState) {
+                              return ListView.separated(
+                                  separatorBuilder: (context, index) => Divider(
+                                      color: AppColors.dividerColor, height: 2),
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  itemCount: state.categories.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    CategoryModel category =
+                                        state.categories[index];
+                                    return CustomListTile(
+                                        imageUrl: category.icon!,
+                                        title: category.name!,
+                                        subtitle:
+                                            '${category.spendPercentage}% of spends',
+                                        trailing: '-\$${category.expense}');
+                                  });
+                            } else if (state is CategoryLoadingState) {
+                              return const ShimmerListLoader();
+                            } else {
+                              return Container();
+                            }
+                          }),
+                          Divider(color: AppColors.dividerColor, height: 2),
+                          const SizedBox(height: 8),
+                          _buildCardFooter('SEE ALL CATEGORIES >'),
+                          const SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
 
-                  //Transactions
-                  const RecentTransactions(),
-                ],
-              ),
-            )
-          ],
+                    //Transactions
+                    const RecentTransactions(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -246,7 +254,8 @@ class _CardListingScreenState extends State<CardListingScreen> {
   Widget _buildCardFooter(String title) {
     return Center(
       child: Text(title,
-          style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+          style: const TextStyle(
+              color: Colors.black54, fontWeight: FontWeight.bold)),
     );
   }
 }

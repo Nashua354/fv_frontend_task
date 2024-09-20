@@ -25,7 +25,7 @@ final router = GoRouter(
         BlocProvider(create: (_) => CardCubit()),
         BlocProvider(create: (_) => TransactionCubit()),
         BlocProvider(create: (_) => CategoryCubit()),
-      ], child: CardListingScreen()),
+      ], child: const CardListingScreen()),
       routes: [
         GoRoute(
           path: RoutePath.settings,
@@ -41,8 +41,11 @@ final router = GoRouter(
         GoRoute(
           path: RoutePath.cardDetails,
           name: AppRoute.cardDetails.name,
-          builder: (context, state) => BlocProvider(
-              create: (_) => TransactionCubit(), child: CardDetailsScreen()),
+          builder: (context, state) => MultiBlocProvider(providers: [
+            BlocProvider(create: (_) => CardCubit()),
+            BlocProvider(create: (_) => CategoryCubit()),
+            BlocProvider(create: (_) => TransactionCubit()),
+          ], child: const CardDetailsScreen()),
         ),
       ],
     ),
