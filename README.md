@@ -1,20 +1,26 @@
 # fv_frontend_task
 
-A new Flutter project.
+A  Flutter project for Finvest Frontend task.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+PreRequisite
+- Flutter version - Flutter 3.24.1 • channel stable
+Steps to run the app
+- Clone the Repo
+- cd fv_frontend_task
+- flutter pub get
+- flutter run
 
 A few resources to get you started if this is your first Flutter project:
 
 - [x] Mock API's
 - [x] Routing - Go
-- [ ] Fetch API - Update Repo - Update Bloc - Update UI | (Base Flow)
-- [ ] Polish UI
-- [ ] Pull to refresh
-- [ ] Card swipe animation and details load animation, smooth transition, pull to refresh animation
-- [ ] Responsive in small and Big devices and Long texts, no/wrong images
+- [x] Fetch API - Update Repo - Update Bloc - Update UI | (Base Flow)
+- [x] Polish UI
+- [x] Pull to refresh
+- [x] Card swipe animation and details load animation, smooth transition, pull to refresh animation
+- [x] Responsive in small and Big devices and Long texts, no/wrong images
 - [ ] Currency Change
 - [ ] Dark Theme
 - [ ] Localization
@@ -24,6 +30,12 @@ A few resources to get you started if this is your first Flutter project:
 - [ ] Secure Storage
 - [ ] Flutter Testing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Screenshots 
+![Alt text](/screenshots/ss1.png?raw=true)
+![Alt text](/screenshots/ss2.png?raw=true)
+![Alt text](/screenshots/ss3.png?raw=true)
+![Alt text](/screenshots/ss4.png?raw=true)
+![Alt text](/screenshots/ss5.png?raw=true)
+![Alt text](/screenshots/ss6.png?raw=true)
+![Alt text](/screenshots/ss7.png?raw=true)
+
